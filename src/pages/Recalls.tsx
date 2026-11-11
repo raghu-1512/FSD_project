@@ -73,14 +73,14 @@ export const Recalls: React.FC = () => {
     setIsRegisterOpen(true);
   };
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.notes.trim()) {
       setFormError('Please enter clinical/regulatory investigation notes for the recall order.');
       return;
     }
 
-    const res = createRecall(formData);
+    const res = await createRecall(formData);
     if (!res.success) {
       setFormError(res.error || 'Failed to issue recall.');
       return;
@@ -94,9 +94,9 @@ export const Recalls: React.FC = () => {
     setClosureNotes('');
   };
 
-  const submitCloseRecall = () => {
+  const submitCloseRecall = async () => {
     if (!closingRecallId) return;
-    updateRecallStatus(closingRecallId, 'closed', closureNotes || 'Regulatory investigation completed and inventory neutralized.');
+    await updateRecallStatus(closingRecallId, 'closed', closureNotes || 'Regulatory investigation completed and inventory neutralized.');
     setClosingRecallId(null);
   };
 

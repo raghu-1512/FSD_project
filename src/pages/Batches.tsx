@@ -114,7 +114,7 @@ export const Batches: React.FC = () => {
     setIsAddEditOpen(true);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -140,7 +140,7 @@ export const Batches: React.FC = () => {
     }
 
     if (editingBatch) {
-      const res = updateBatch(editingBatch.id, {
+      const res = await updateBatch(editingBatch.id, {
         ...formData,
         medicineName: med.name,
       });
@@ -149,7 +149,7 @@ export const Batches: React.FC = () => {
         return;
       }
     } else {
-      const res = addBatch({
+      const res = await addBatch({
         ...formData,
         medicineName: med.name,
       });
@@ -162,9 +162,9 @@ export const Batches: React.FC = () => {
     setIsAddEditOpen(false);
   };
 
-  const handleExecuteDelete = () => {
+  const handleExecuteDelete = async () => {
     if (!deleteConfirmId) return;
-    const res = deleteBatch(deleteConfirmId);
+    const res = await deleteBatch(deleteConfirmId);
     if (!res.success) {
       setErrorMessage(res.error || 'Failed to delete batch.');
     } else {

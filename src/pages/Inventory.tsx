@@ -79,7 +79,7 @@ export const Inventory: React.FC = () => {
     setAdjustmentError(null);
   };
 
-  const handleAdjustSubmit = (e: React.FormEvent) => {
+  const handleAdjustSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedBatch) return;
 
@@ -88,7 +88,7 @@ export const Inventory: React.FC = () => {
       return;
     }
 
-    const res = updateStock(selectedBatch.id, newQuantity, adjustmentReason);
+    const res = await updateStock(selectedBatch.id, newQuantity, adjustmentReason);
     if (!res.success) {
       setAdjustmentError(res.error || 'Failed to update stock quantity.');
       return;

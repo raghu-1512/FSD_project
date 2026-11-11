@@ -99,7 +99,7 @@ export const Medicines: React.FC = () => {
   };
 
   // Submit form
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim()) {
       setFormError('Medicine name is required.');
@@ -111,9 +111,9 @@ export const Medicines: React.FC = () => {
     }
 
     if (editingMedicine) {
-      updateMedicine(editingMedicine.id, formData);
+      await updateMedicine(editingMedicine.id, formData);
     } else {
-      addMedicine(formData);
+      await addMedicine(formData);
     }
 
     setIsAddEditOpen(false);
@@ -125,9 +125,9 @@ export const Medicines: React.FC = () => {
     setDeleteConfirmId(id);
   };
 
-  const handleExecuteDelete = () => {
+  const handleExecuteDelete = async () => {
     if (!deleteConfirmId) return;
-    const result = deleteMedicine(deleteConfirmId);
+    const result = await deleteMedicine(deleteConfirmId);
     if (!result.success) {
       setDeleteError(result.error || 'Failed to delete medicine.');
     } else {
