@@ -1,0 +1,6 @@
+{
+  "name": "Medicine Expiry & Recall Alert System",
+  "description": "Professional healthcare inventory management and alert system for tracking medicine batches, calculating expiry risk, and managing safety recalls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
