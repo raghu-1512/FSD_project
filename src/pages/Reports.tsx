@@ -169,6 +169,16 @@ export const Reports: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="/Medicine_Expiry_Recall_System_Documentation.pdf"
+            download="Medicine_Expiry_Recall_System_Documentation.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download Project PDF</span>
+          </a>
           <button
             onClick={exportMedicinesCsv}
             className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 border border-slate-200 cursor-pointer"

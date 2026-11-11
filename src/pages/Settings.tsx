@@ -198,7 +198,10 @@ export const Settings: React.FC = () => {
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-emerald-700" />
-                <span className="font-bold text-sm text-slate-900">Dr. Sarah Mitchell</span>
+                <div>
+                  <span className="font-bold text-sm text-slate-900 block">Raghu</span>
+                  <span className="text-[11px] text-slate-500 font-mono">raghumullu044@gmail.com</span>
+                </div>
               </div>
               <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full uppercase">
                 Admin

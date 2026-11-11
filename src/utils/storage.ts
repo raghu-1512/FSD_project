@@ -14,15 +14,15 @@ const STORAGE_KEYS = {
 export const DEMO_USERS: Record<string, User> = {
   admin: {
     id: 'USR-001',
-    name: 'Dr. Sarah Mitchell',
-    email: 'admin@pharmashield.demo',
+    name: 'Raghu',
+    email: 'raghumullu044@gmail.com',
     role: 'admin',
     roleTitle: 'Chief Pharmacy Administrator',
   },
   staff: {
     id: 'USR-002',
-    name: 'Alex Rivera, CPhT',
-    email: 'staff@pharmashield.demo',
+    name: 'Raghu (Staff)',
+    email: 'raghumullu044@gmail.com',
     role: 'staff',
     roleTitle: 'Pharmacy Inventory Specialist',
   },
@@ -269,7 +269,7 @@ export function createInitialSampleData(baseDate: Date = new Date()) {
       recallDate: getDateOffset(-5, baseDate),
       status: 'active',
       notes: 'Demonstration recall: seal integrity discrepancy flagged by central regulatory authority. Immediate quarantine required.',
-      reportedBy: 'Dr. Sarah Mitchell',
+      reportedBy: 'Raghu',
     },
   ];
 
@@ -329,7 +329,7 @@ export function createInitialSampleData(baseDate: Date = new Date()) {
       change: 50,
       reason: 'Restock',
       date: getDateOffset(-6, baseDate),
-      performedBy: 'Dr. Sarah Mitchell',
+      performedBy: 'Raghu',
     },
   ];
 
@@ -415,7 +415,17 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.AUTH_USER);
       if (!data) return DEMO_USERS.admin; // default to admin demo user
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      if (
+        parsed.email === 'admin@pharmashield.demo' ||
+        parsed.name === 'Dr. Sarah Mitchell' ||
+        parsed.name === 'Alex Rivera, CPhT'
+      ) {
+        const updated = DEMO_USERS.admin;
+        localStorage.setItem(STORAGE_KEYS.AUTH_USER, JSON.stringify(updated));
+        return updated;
+      }
+      return parsed;
     } catch {
       return DEMO_USERS.admin;
     }

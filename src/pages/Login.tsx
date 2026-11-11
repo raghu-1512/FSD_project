@@ -8,31 +8,31 @@ export const Login: React.FC = () => {
   const { login } = useApp();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('admin@pharmashield.demo');
-  const [password, setPassword] = useState('demo123');
+  const [email, setEmail] = useState('raghumullu044@gmail.com');
+  const [password, setPassword] = useState('Raghu@123');
   const [selectedRole, setSelectedRole] = useState<'admin' | 'staff'>('admin');
   const [error, setError] = useState<string | null>(null);
 
   const handleRoleSelect = (role: 'admin' | 'staff') => {
     setSelectedRole(role);
     setEmail(DEMO_USERS[role].email);
-    setPassword('demo123');
+    setPassword('Raghu@123');
     setError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
-      setError('Please enter a valid demonstration email.');
+      setError('Please enter a valid email.');
       return;
     }
     // Accept login and set session
-    login(selectedRole);
+    await login(selectedRole, email, password);
     navigate('/');
   };
 
-  const handleQuickLogin = (role: 'admin' | 'staff') => {
-    login(role);
+  const handleQuickLogin = async (role: 'admin' | 'staff') => {
+    await login(role, DEMO_USERS[role].email, 'Raghu@123');
     navigate('/');
   };
 

@@ -18,6 +18,7 @@ import {
   Calendar,
   Layers,
   FileSpreadsheet,
+  Download,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -32,7 +33,7 @@ import {
 } from 'recharts';
 
 export const Dashboard: React.FC = () => {
-  const { stats, medicines, batches, recalls, systemDate } = useApp();
+  const { user, stats, medicines, batches, recalls, systemDate } = useApp();
   const navigate = useNavigate();
 
   // Evaluate batch statuses with system date
@@ -77,6 +78,53 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Welcome & User Session Banner */}
+      <div className="bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-md border border-emerald-700/60 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="text-[11px] font-bold tracking-wide uppercase text-emerald-200 bg-emerald-800/90 px-2.5 py-0.5 rounded-full border border-emerald-600/50">
+              Active Session
+            </span>
+            <span className="text-xs text-emerald-200/90 font-medium">
+              {user?.roleTitle || 'Chief Pharmacy Administrator'}
+            </span>
+          </div>
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+            Welcome, {user?.name || 'Raghu'}
+          </h1>
+          <p className="text-xs sm:text-sm text-emerald-100/90 mt-1">
+            Logged in as <strong className="text-white font-semibold">{user?.email || 'raghumullu044@gmail.com'}</strong> · Medicine Expiry & Safety Recall Command Center
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <a
+            href="/Medicine_Expiry_Recall_System_Documentation.pdf"
+            download="Medicine_Expiry_Recall_System_Documentation.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 bg-emerald-600/90 hover:bg-emerald-600 text-white text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs border border-emerald-500/50"
+            title="Download full project documentation as PDF"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download PDF</span>
+          </a>
+          <button
+            onClick={() => navigate('/batches')}
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer border border-white/20"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Register Batch</span>
+          </button>
+          <button
+            onClick={() => navigate('/inventory')}
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer border border-white/20"
+          >
+            <Boxes className="w-3.5 h-3.5" />
+            <span>Manage Stock</span>
+          </button>
+        </div>
+      </div>
       {/* Critical Active Recall Alert Banner (if any active recall) */}
       {activeRecalls.length > 0 && (
         <div className="bg-purple-900 text-white rounded-xl p-4 sm:p-5 shadow-md border border-purple-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">

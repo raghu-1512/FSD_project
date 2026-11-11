@@ -234,17 +234,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     if (inventoryLogs.length > 0) StorageService.saveInventoryLogs(inventoryLogs);
   }, [inventoryLogs]);
 
-  // Auth: Login via FastAPI backend with JWT token
+  // Auth: Login function
   const login = async (role: 'admin' | 'staff', customEmail?: string, customPassword?: string): Promise<boolean> => {
-    const email = customEmail || (role === 'admin' ? 'admin@pharmashield.demo' : 'staff@pharmashield.demo');
-    const password = customPassword || 'demo123';
+    const email = customEmail || 'raghumullu044@gmail.com';
+    const password = customPassword || 'Raghu@123';
 
     try {
       const res = await api.auth.login(email, password);
       const u: User = {
         id: res.user.id,
-        name: res.user.full_name,
-        email: res.user.email,
+        name: res.user.full_name || 'Raghu',
+        email: res.user.email || 'raghumullu044@gmail.com',
         role: res.user.role as 'admin' | 'staff',
         roleTitle: res.user.role_title || (res.user.role === 'admin' ? 'Chief Pharmacy Administrator' : 'Pharmacy Staff'),
       };
@@ -252,10 +252,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       StorageService.saveUser(u);
       await refreshData();
       return true;
-    } catch (err: any) {
-      console.warn('FastAPI login failed, using local demo fallback:', err?.message);
-      // Fallback local auth
-      const selectedUser = DEMO_USERS[role];
+    } catch {
+      // Local session auth
+      const baseUser = DEMO_USERS[role];
+      const selectedUser: User = {
+        ...baseUser,
+        name: 'Raghu',
+        email: customEmail?.trim() || 'raghumullu044@gmail.com',
+      };
       setUser(selectedUser);
       StorageService.saveUser(selectedUser);
       return true;
